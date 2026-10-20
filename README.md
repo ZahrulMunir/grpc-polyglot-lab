@@ -1,258 +1,173 @@
-\# Praktikum gRPC Polyglot
+# Praktikum gRPC Polyglot
 
+## 1. Deskripsi Proyek
 
+Praktikum ini membahas komunikasi antara server dan client menggunakan gRPC dengan bahasa pemrograman yang berbeda. Server dibuat menggunakan Go, sedangkan client dibuat menggunakan Python dan Node.js.
 
-\## 1. Deskripsi Proyek
+File `user.proto` digunakan untuk mendefinisikan struktur data dan layanan yang digunakan bersama oleh server dan client. Dengan menggunakan gRPC, client yang dibuat dengan bahasa pemrograman berbeda dapat meminta data dari server yang sama.
 
+Pada praktikum ini, server menyediakan layanan `GetUserProfile` untuk mengambil data profil pengguna berdasarkan ID.
 
+## 2. Tujuan Praktikum
 
-Praktikum ini membahas komunikasi antara server dan client menggunakan gRPC dengan bahasa pemrograman yang berbeda.
+Tujuan dari praktikum ini adalah:
 
+1. Memahami penggunaan Protocol Buffers.
+2. Membuat server gRPC menggunakan Go.
+3. Membuat client gRPC menggunakan Python.
+4. Membuat client gRPC menggunakan Node.js.
+5. Menguji komunikasi antara server dan client.
+6. Memahami perbedaan static code generation dan dynamic runtime loading.
+7. Memahami penggunaan Git dan GitHub untuk menyimpan kode program.
 
+## 3. Teknologi yang Digunakan
 
-Server dibuat menggunakan Go, sedangkan client dibuat menggunakan Python dan Node.js. File `user.proto` digunakan sebagai definisi data dan layanan yang dipakai bersama oleh server dan client.
+Teknologi yang digunakan dalam praktikum ini adalah:
 
+1. Go sebagai bahasa pemrograman server.
+2. Python sebagai bahasa pemrograman client.
+3. Node.js sebagai bahasa pemrograman client.
+4. gRPC sebagai sistem komunikasi antara server dan client.
+5. Protocol Buffers untuk mendefinisikan data dan layanan.
+6. `protoc` untuk memproses file Protocol Buffers.
+7. Git untuk mengelola perubahan kode.
+8. GitHub untuk menyimpan repositori proyek.
 
+## 4. Struktur Proyek
 
-\## 2. Tujuan Praktikum
+Folder utama proyek bernama `grpc-polyglot-lab`.
 
+### A. File utama
 
+- `user.proto` berisi definisi data dan layanan gRPC.
+- `README.md` berisi penjelasan proyek dan petunjuk menjalankan program.
+- `.gitignore` berisi daftar file atau folder yang tidak perlu dimasukkan ke repositori Git.
 
-1\. Memahami penggunaan Protocol Buffers.
+### B. Folder go-server
 
-2\. Membuat server gRPC menggunakan Go.
+Folder ini berisi program server yang dibuat menggunakan Go.
 
-3\. Membuat client gRPC menggunakan Python.
+- `main.go` merupakan program utama server.
+- `go.mod` berisi informasi modul dan dependensi Go.
+- `go.sum` berisi informasi pemeriksaan dependensi Go.
+- `pb/user.pb.go` merupakan kode hasil generate Protocol Buffers.
+- `pb/user_grpc.pb.go` merupakan kode hasil generate layanan gRPC.
 
-4\. Membuat client gRPC menggunakan Node.js.
+### C. Folder python-client
 
-5\. Menguji komunikasi antara server dan client.
+Folder ini berisi program client yang dibuat menggunakan Python.
 
-6\. Memahami perbedaan static code generation dan dynamic runtime loading.
+- `client.py` digunakan untuk mengirim permintaan kepada server dan menampilkan respons.
+- `user_pb2.py` berisi kode hasil generate pesan Protocol Buffers.
+- `user_pb2_grpc.py` berisi kode hasil generate layanan gRPC.
 
+### D. Folder node-client
 
+Folder ini berisi program client yang dibuat menggunakan Node.js.
 
-\## 3. Teknologi yang Digunakan
+- `client.js` digunakan untuk mengirim permintaan kepada server.
+- `package.json` berisi informasi proyek dan dependensi Node.js.
+- `package-lock.json` mencatat versi dependensi yang terpasang.
 
+## 5. Cara Kerja Program
 
+Cara kerja program dalam praktikum ini adalah sebagai berikut:
 
-1\. Go untuk membuat server.
+1. File `user.proto` mendefinisikan pesan permintaan, pesan respons, dan layanan gRPC.
+2. Server Go dijalankan pada port `50051`.
+3. Client Python atau Node.js mengirim permintaan dengan ID pengguna.
+4. Server memeriksa ID pengguna yang diterima.
+5. Jika ID pengguna adalah `1`, server mengirimkan data profil Budi Santoso.
+6. Client menerima respons dan menampilkan nama, email, serta nomor telepon.
 
-2\. Python untuk membuat client.
+Kedua client menggunakan layanan server yang sama meskipun dibuat menggunakan bahasa pemrograman berbeda.
 
-3\. Node.js untuk membuat client.
+## 6. Cara Menjalankan Program
 
-4\. gRPC untuk komunikasi antara server dan client.
+Sebelum menjalankan client, pastikan server Go sudah berjalan. Gunakan tiga terminal PowerShell yang berbeda untuk menguji server dan kedua client.
 
-5\. Protocol Buffers untuk mendefinisikan data dan layanan.
+### A. Menjalankan Server Go
 
-6\. Git dan GitHub untuk mengelola serta menyimpan kode program.
-
-
-
-\## 4. Struktur Proyek
-
-
-
-Nama folder utama: `grpc-polyglot-lab`
-
-
-
-\*\*File utama\*\*
-
-
-
-\- `user.proto` berisi definisi data dan layanan gRPC.
-
-\- `README.md` berisi penjelasan proyek dan petunjuk penggunaan.
-
-\- `.gitignore` menentukan file yang tidak perlu dimasukkan ke repositori.
-
-
-
-\*\*Folder go-server\*\*
-
-
-
-\- `main.go` merupakan program utama server.
-
-\- `go.mod` berisi informasi modul dan dependensi Go.
-
-\- `pb/user.pb.go` merupakan kode hasil generate Protocol Buffers.
-
-\- `pb/user\_grpc.pb.go` merupakan kode hasil generate layanan gRPC.
-
-
-
-\*\*Folder python-client\*\*
-
-
-
-\- `client.py` merupakan program client Python.
-
-\- `user\_pb2.py` berisi kode hasil generate pesan Protocol Buffers.
-
-\- `user\_pb2\_grpc.py` berisi kode hasil generate layanan gRPC.
-
-
-
-\*\*Folder node-client\*\*
-
-
-
-\- `client.js` merupakan program client Node.js.
-
-\- `package.json` berisi informasi proyek dan dependensi.
-
-\- `package-lock.json` mencatat versi dependensi yang terpasang.
-
-
-
-\## 5. Cara Menjalankan Program
-
-
-
-\### A. Menjalankan Server Go
-
-
-
-Buka terminal PowerShell pada folder utama proyek, kemudian jalankan:
-
-
+Buka terminal pertama pada folder utama proyek, kemudian jalankan:
 
 ```powershell
-
 cd go-server
-
 go run main.go
-
 ```
 
+Jika berhasil, terminal menampilkan pesan bahwa server berjalan pada port `50051`.
 
+Biarkan terminal server tetap terbuka selama pengujian.
 
-Jika berhasil, server akan berjalan pada port `50051`. Biarkan terminal tetap terbuka.
-
-
-
-\### B. Menjalankan Client Python
-
-
+### B. Menjalankan Client Python
 
 Buka terminal kedua pada folder utama proyek, kemudian jalankan:
 
-
-
 ```powershell
-
 cd python-client
-
 python client.py
-
 ```
 
+Client Python akan mengirim permintaan kepada server dan menampilkan data profil pengguna yang diterima.
 
-
-Client Python mengirim permintaan kepada server untuk mendapatkan data pengguna.
-
-
-
-\### C. Menjalankan Client Node.js
-
-
+### C. Menjalankan Client Node.js
 
 Buka terminal ketiga pada folder utama proyek, kemudian jalankan:
 
-
-
 ```powershell
-
 cd node-client
-
 node client.js
-
 ```
 
+Client Node.js membaca definisi layanan dari file `user.proto` menggunakan library `@grpc/proto-loader`, kemudian mengirim permintaan kepada server.
 
+## 7. Hasil Pengujian
 
-Client Node.js membaca definisi layanan dari `user.proto` saat program dijalankan, kemudian mengirim permintaan kepada server.
+Pengujian dilakukan dengan menjalankan server Go, kemudian menghubungkannya menggunakan client Python dan Node.js.
 
+Kedua client berhasil menerima data profil pengguna dari server.
 
+Data yang dikirimkan adalah:
 
-\## 6. Hasil Pengujian
+- ID pengguna: `1`
+- Nama: Budi Santoso
+- Email: budi@universitas.ac.id
+- Nomor telepon: 081234567890
 
+Hasil pengujian menunjukkan bahwa server Go berhasil melayani permintaan dari kedua client menggunakan gRPC.
 
+## 8. Analisis Static Code Generation dan Dynamic Runtime Loading
 
-Server Go berhasil menerima permintaan dari client Python dan Node.js.
+Pada proyek ini, Go dan Python menggunakan static code generation. Kode pendukung gRPC dibuat terlebih dahulu berdasarkan file `user.proto` menggunakan compiler Protocol Buffers. Kode hasil generate kemudian digunakan oleh server dan client.
 
+Jika definisi pada file `user.proto` berubah, kode hasil generate untuk Go dan Python perlu diperbarui agar sesuai dengan definisi terbaru.
 
+Sementara itu, Node.js menggunakan dynamic runtime loading melalui library `@grpc/proto-loader`. Definisi layanan dibaca saat program dijalankan sehingga kode JavaScript hasil generate tidak perlu dibuat secara terpisah.
 
-Data pengguna yang diterima adalah:
+Menurut saya, static code generation memudahkan penggunaan kode yang sudah dihasilkan sebelumnya, sedangkan dynamic runtime loading lebih praktis karena definisi protokol dibaca saat program berjalan. Kedua pendekatan dapat digunakan untuk berkomunikasi dengan server gRPC yang sama selama definisi layanan sesuai.
 
+## 9. Pengembangan Program
 
+Pada evaluasi praktikum, field `phone` ditambahkan ke pesan `UserResponse` pada file `user.proto`.
 
-\- ID pengguna: `1`
+Setelah perubahan dilakukan, kode gRPC untuk Go dan Python dibuat ulang. Program server Go, client Python, dan client Node.js kemudian diperbarui agar nomor telepon dapat dikirim dan ditampilkan.
 
-\- Nama: Budi Santoso
+Pengujian ulang menunjukkan bahwa kedua client dapat menerima dan menampilkan nomor telepon yang diberikan oleh server.
 
-\- Email: budi@universitas.ac.id
+Perubahan ini menunjukkan bahwa struktur data pada Protocol Buffers dapat dikembangkan sesuai kebutuhan aplikasi.
 
+## 10. Kesimpulan
 
+Melalui praktikum ini, saya mempelajari cara membangun server gRPC menggunakan Go serta menghubungkannya dengan client Python dan Node.js.
 
-Hasil tersebut menunjukkan bahwa kedua client dapat berkomunikasi dengan server menggunakan gRPC.
+Saya juga memahami fungsi Protocol Buffers sebagai definisi bersama, proses pembuatan kode pendukung gRPC, serta perbedaan static code generation dan dynamic runtime loading.
 
+Berdasarkan pengujian, client Python dan Node.js berhasil berkomunikasi dengan server Go dan menampilkan data profil pengguna, termasuk nomor telepon.
 
+## 11. Repositori GitHub
 
-\## 7. Analisis Static Code Generation dan Dynamic Runtime Loading
+Proyek praktikum ini disimpan di GitHub agar kode program dapat dilihat, diperiksa, dan dikembangkan kembali.
 
+Tautan repositori:
 
-
-Go dan Python menggunakan static code generation. Kode pendukung gRPC dibuat terlebih dahulu berdasarkan file `user.proto`. Kode tersebut kemudian digunakan oleh program server dan client. Jika definisi protokol berubah, kode hasil generate yang terkait perlu diperbarui.
-
-
-
-Node.js menggunakan dynamic runtime loading melalui library `@grpc/proto-loader`. Definisi layanan dibaca saat program dijalankan sehingga tidak perlu membuat file kode JavaScript hasil generate secara terpisah.
-
-
-
-Menurut saya, static code generation memudahkan penggunaan kode yang sudah dibuat sebelumnya, sedangkan dynamic runtime loading lebih praktis karena definisi protokol dibaca saat program berjalan. Keduanya dapat digunakan untuk berkomunikasi dengan server yang sama selama definisi layanan sesuai.
-
-
-
-\## 8. Pengembangan Program
-
-
-
-Pengembangan yang diminta pada evaluasi praktikum adalah menambahkan field `phone` pada pesan `UserResponse`.
-
-
-
-Perubahan ini memerlukan pembaruan file `user.proto`, pembuatan ulang kode untuk bahasa yang menggunakan static code generation, serta penyesuaian server Go dan kedua client agar nomor telepon dapat ditampilkan.
-
-
-
-Setelah perubahan selesai, program perlu diuji kembali untuk memastikan data nomor telepon diterima dengan benar.
-
-
-
-\## 9. Kesimpulan
-
-
-
-Praktikum ini memberikan pemahaman tentang komunikasi client-server menggunakan gRPC dengan bahasa pemrograman yang berbeda. Server Go dapat diakses oleh client Python dan Node.js melalui definisi bersama pada file `user.proto`.
-
-
-
-Praktikum ini juga membantu memahami perbedaan static code generation dan dynamic runtime loading dalam pengembangan aplikasi gRPC.
-
-
-
-\## 10. GitHub
-
-
-
-Repositori proyek akan digunakan untuk menyimpan kode program praktikum agar dapat diperiksa dan dikembangkan kembali.
-
-
-
-Tautan repositori: isi dengan URL GitHub proyek setelah diunggah.
-
+https://github.com/ZahrulMunir/grpc-polyglot-lab
